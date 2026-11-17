@@ -286,13 +286,6 @@
 (setq completion-styles '(orderless))
 (setq tab-always-indent 'complete)
 
-(use-package flycheck
-  :straight t
-  :hook (prog-mode . flycheck-mode)
-  :config
-  (setq flycheck-check-syntax-automatically '(save idle-change)
-        flycheck-idle-change-delay 1.0))
-
 (use-package undo-tree
   :ensure t
   :init
