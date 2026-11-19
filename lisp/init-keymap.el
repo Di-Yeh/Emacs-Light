@@ -107,20 +107,6 @@
 (advice-add 'query-replace-read-args :around #'my/query-replace-read-args-advice)
 (advice-add 'query-replace-regexp-read-args :around #'my/query-replace-read-args-advice)
 
-
-(defun my/list-lsp-diagnostics ()
-  "显示当前诊断信息:
-如果当前启用了 lsp-bridge，则使用 `lsp-bridge-diagnostic-list`；
-否则使用 Flycheck 的 `flycheck-list-errors`。"
-  (interactive)
-  (if (and (bound-and-true-p lsp-bridge-mode)
-           (fboundp 'lsp-bridge-diagnostic-list))
-      (lsp-bridge-diagnostic-list)
-    (if (fboundp 'flycheck-list-errors)
-        (flycheck-list-errors)
-      (message "当前环境中未检测到 lsp-bridge 或 flycheck。"))))
-
-
 ;; 调整窗口宽度：通用函数和专门的包装命令
 (defun my/adjust-window-width (delta)
   "将当前窗口的宽度调整 DELTA 大小（正值增大，负值减小）。

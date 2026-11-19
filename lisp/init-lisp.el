@@ -56,4 +56,14 @@
   (remove-hook 'clojure-mode-hook #'lsp-deferred)
   (remove-hook 'clojure-mode-hook #'eglot-ensure))
 
+(use-package paredit
+  :ensure t
+  :hook ((lisp-mode
+          emacs-lisp-mode
+          clojure-mode
+          clojurescript-mode
+          slime-repl-mode
+          sly-mrepl-mode
+          cider-repl-mode) . enable-paredit-mode))
+
 (provide 'init-lisp)
