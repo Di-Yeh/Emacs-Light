@@ -46,7 +46,7 @@
 (use-package flycheck-clj-kondo
   :straight t
   :after (flycheck clojure-mode))
-  
+
 ;; ---------------------------------------------
 ;; 🔒 防止 clojure-mode 触发任何 lsp/eglot
 ;; ---------------------------------------------
@@ -64,6 +64,20 @@
           clojurescript-mode
           slime-repl-mode
           sly-mrepl-mode
-          cider-repl-mode) . enable-paredit-mode))
+          cider-repl-mode) . enable-paredit-mode)
+  :config
+  ;; 定義一個輔助函式，只在特定的 REPL buffer 中把 RET 還給原本的模式
+  (defun my/paredit-disable-ret-in-repl ()
+    (let ((oldmap (cdr (assoc 'paredit-mode minor-mode-map-alist)))
+          (newmap (make-sparse-keymap)))
+      (set-keymap-parent newmap oldmap)
+      (define-key newmap (kbd "RET") nil)
+      (make-local-variable 'minor-mode-overriding-map-alist)
+      (push `(paredit-mode . ,newmap) minor-mode-overriding-map-alist)))
+
+  ;; 套用到 SLY、CIDER 與 SLIME 的 REPL
+  (add-hook 'sly-mrepl-mode-hook #'my/paredit-disable-ret-in-repl)
+  (add-hook 'cider-repl-mode-hook #'my/paredit-disable-ret-in-repl)
+  (add-hook 'slime-repl-mode-hook #'my/paredit-disable-ret-in-repl))
 
 (provide 'init-lisp)
