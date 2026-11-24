@@ -230,8 +230,8 @@
 
 (global-set-key (kbd "C-S-o") 'my/open-insert-line)
 
-(global-set-key (kbd "C-{") 'my/shrink-window-width)
-(global-set-key (kbd "C-}") 'my/enlarge-window-width)
+(global-set-key (kbd "C-M-(") 'my/shrink-window-width)
+(global-set-key (kbd "C-M-)") 'my/enlarge-window-width)
 (global-set-key (kbd "M-[") 'my/shrink-window-height)
 (global-set-key (kbd "M-]") 'my/enlarge-window-height)
 
